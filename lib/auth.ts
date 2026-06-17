@@ -8,20 +8,24 @@ interface Credentials {
     password: string;
 }
 
-export const {handlers, signIn, signOut, auth} = NextAuth({
+export default NextAuth({
     providers: [
         Credentials({
             credentials: {
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials: Credentials) {
-                const {data, error} = await getSupabaseAdminClient().from("user").select("*").eq("email", credentials.email).single();
+            async authorize(credentials) {
+                const {data, error} = await getSupabaseAdminClient()
+                .from("user")
+                .select("*")
+                .eq("email", credentials.email as string).single();
+
                 if (error || !data) {
                     console.error("Error fetching user:", data?.error?.message);
                     return null;
                 }
-                const isPasswordValid = await bcrypt.compare(credentials.password, data.password);
+                const isPasswordValid = await bcrypt.compare(credentials.password as string, data.password);
                 if (!isPasswordValid) {
                     return null;
                 }
@@ -37,16 +41,19 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
     callbacks: {
         async jwt({token, user}) {
             if (user) {
-                token.id = user.id
+                token.id = user.id;
             }
             return token;
         },
 
         async session({session, token}) {
             if(token.id) {
-                session.user.id = token.id as string
+                session.user.id = token.id as string;
             }
             return session;
         },
+    },
+    session:{
+        strategy:"jwt"
     }
 });
