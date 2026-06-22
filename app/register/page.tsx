@@ -1,3 +1,5 @@
+"use client"
+
 import InputField from "@/components/input-field";
 import LoginForm from "@/components/login-form";
 import Button from "@/components/button";
