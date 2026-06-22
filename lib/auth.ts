@@ -15,7 +15,7 @@ export default NextAuth({
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials) {
+            async authorize(credentials: any) {
                 const {data, error} = await getSupabaseAdminClient()
                 .from("user")
                 .select("*")
@@ -46,7 +46,7 @@ export default NextAuth({
             return token;
         },
 
-        async session({session, token}) {
+        async session({session, token}: any) {
             if(token.id) {
                 session.user.id = token.id as string;
             }
