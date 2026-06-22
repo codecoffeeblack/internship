@@ -46,21 +46,22 @@ export async function POST(request: NextRequest) {
   if (!valid) {
     return NextResponse.json({
       error: reason
-    })
+    }, {status: 400})
   }
 
   if (password !== confirm_password) {
     return NextResponse.json({
       error: "Password does not match"
-    })
+    }, {status: 400})
   }
 
-  const { data: existingUser } = await getSupabaseAdminClient().from("user").select("*").eq("email", email).single();
+  const { data: existingUser, error: existingUserError } = await getSupabaseAdminClient().from("user").select("*").eq("email", email).single();
+  console.log (existingUser, existingUserError);
   if (existingUser) {
     console.error("Error fetching user:", existingUser?.error?.message);
     return NextResponse.json({
       error: "Email already in use"
-    })
+    }, {status: 400})
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
