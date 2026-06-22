@@ -22,7 +22,7 @@ export default NextAuth({
                 .eq("email", credentials.email as string).single();
 
                 if (error || !data) {
-                    console.error("Error fetching user:", data?.error?.message);
+                    console.error("Error fetching user:", error);
                     return null;
                 }
                 const isPasswordValid = await bcrypt.compare(credentials.password as string, data.password);
