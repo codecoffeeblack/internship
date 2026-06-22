@@ -13,11 +13,37 @@ const RegisterPage = () => {
             
             <LoginForm label="Register">
                 <form>
-                    <InputField label="First Name" placeholder="Enter your first name" type="text"/>
-                    <InputField label="Last Name" placeholder="Enter your last name" type="text"/>
-                    <InputField label="Email or username" placeholder="Enter your email or username" type="text"/>
-                    <InputField label="Password" placeholder="Enter your password" type="password"/>
-                    <Button label="Register"></Button>        
+                    <InputField 
+                        label="First Name" 
+                        placeholder="Enter your first name" 
+                        type="text"
+                        name="First_name"
+                        onChange={() => {}}/>
+                    <InputField 
+                        label="Last Name" 
+                        placeholder="Enter your last name" 
+                        type="text"
+                        name="Last_name"
+                        onChange={() => {}}/>
+                    <InputField 
+                        label="Email or username" 
+                        placeholder="Enter your email or username" 
+                        type="text"
+                        name="Email"
+                        onChange={() => {}}/>
+                    <InputField 
+                        label="Password" 
+                        placeholder="Enter your password" 
+                        type="password"
+                        name="Password"
+                        onChange={() => {}}/>
+                    <InputField 
+                        label="Confirm Password" 
+                        placeholder="Confirm your password" 
+                        type="password"
+                        name="Confirm_Password"
+                        onChange={() => {}}/>
+                    <Button label="Register" type="submit"></Button>        
                 </form>
             </LoginForm>
 
