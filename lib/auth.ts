@@ -40,13 +40,16 @@ export default NextAuth({
 
     callbacks: {
         async jwt({token, user}) {
+            console.log(user)
             if (user) {
                 token.id = user.id;
+                token.name = `${user?.first_name} ${user?.last_name}`;
             }
             return token;
         },
 
         async session({session, token}: any) {
+            session.user.name=token.name
             if(token.id) {
                 session.user.id = token.id as string;
             }
