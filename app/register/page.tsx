@@ -17,7 +17,7 @@ const RegisterPage = () => {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
             event.preventDefault();
             setIsLoading(true);
             setIsError(false);

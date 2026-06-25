@@ -88,6 +88,30 @@ export async function POST(request: NextRequest) {
 
   delete newUser.password;
 
+  const supabase = getSupabaseAdminClient();
+
+const username = `User${Math.floor(
+  100000000 + Math.random() * 900000000
+)}`;
+
+const { error: profileError } = await supabase
+  .from("profile")
+  .insert({
+    user_id: newUser.user_id,
+    bio: "",
+    avatar_url: "",
+    username,
+  });
+
+  if (profileError) {
+    console.error("Error creating profile:", profileError.message);
+
+    return NextResponse.json(
+      { error: "User created, but profile creation failed" },
+      { status: 500 }
+    );
+  }
+
   return NextResponse.json(newUser, {status: 201});
 
 }
