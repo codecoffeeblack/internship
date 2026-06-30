@@ -3,6 +3,7 @@
 import { Session } from 'next-auth'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import DefaultAvatar from './default-avatar'
 
 const NavLinks = [
     {
@@ -18,7 +19,7 @@ const NavLinks = [
 
 const Navigation = ({ user }: {user?:Session["user"]}) => {
     const pathName = usePathname()
-    const initial = user?.name?.split(" ").map(word => word[0]).join("")
+    const initial = user?.name?.split(" ")
     console.log(initial)
   return (
     <div>
@@ -58,7 +59,8 @@ const Navigation = ({ user }: {user?:Session["user"]}) => {
                         <button className="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                             <span className="absolute -inset-1.5"></span>
                             <span className="sr-only">Open user menu</span>
-                            <div className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10 text-white">{initial}</div>
+                            <DefaultAvatar firstName={initial?.[0] || ''} lastName={initial?.[1] || ''} size={32}/>
+                            {/* <div className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10 text-white">{initial}</div> */}
                         </button>
                     </div>
                 </div>

@@ -1,7 +1,8 @@
 "use client";
 
 import Button from "@/components/button";
-import DefaultAvatar from "@/components/default-avatar";
+import ModalDialog from "@/components/modal";
+import Modal from "@/components/modal";
 import ProfileHeader from "@/components/profile-header";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -29,10 +30,10 @@ const ProfilePage = () => {
     <div className="flex justify-center h-screen items-center flex-col gap-4">
       {session?.user && (
         <ProfileHeader
-          avatar={DefaultAvatar}
+          avatar={session.user.image}
           firstName={session.user.name?.split(" ")[0] || "First"}
           lastName={session.user.name?.split(" ")[1] || "Last"}
-          username="User120391230"
+          email={session.user.email || ""}
         />
       )}
 
@@ -42,6 +43,7 @@ const ProfilePage = () => {
           type="button"
           label="Log out"
         />
+
       </div>
     </div>
   );
